@@ -2,6 +2,7 @@ const path = require('path')
 const http = require('http')
 const querystring = require('querystring')
 
+const debug = require('debug')('five')
 const wayfarer = require('wayfarer')
 
 const handleRequest = require('./lib/handle-request')
@@ -55,6 +56,7 @@ module.exports = function (opts) {
       funcs = [funcs]
     }
 
+    debug(`Adding route: ${method.toUpperCase()} ${matcher}`)
     routers.get(method).on(matcher, (params, req, res) => {
       req.params = querystring.parse(req.url.split('?')[1])
       req.urlParams = params
